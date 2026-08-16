@@ -137,6 +137,7 @@ const SYSTEM_PATHS = [
   'modes/ua/',
   'modes/heuristics/',
   'modes/regional/',
+  'uk-embedded/',
   'modes/zh/',
   'modes/zh/interview/',
   'modes/zh-TW/',

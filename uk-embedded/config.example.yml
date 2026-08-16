@@ -1,0 +1,9 @@
+# Default UK Embedded/IoT specialization config.
+# Personal facts (name, visa, salary, clearance) belong in config/profile.yml,
+# never in this file.
+
+version: 1
+specialization: uk-embedded
+
+market:
+  country: UK
