@@ -104,3 +104,74 @@ export async function discoverJobs(providers) {
 export function retainedJobs(result) {
   return result.jobs.filter((j) => !j.quarantine);
 }
+
+function ctlKey(job) {
+  return [job.company, job.title, job.location]
+    .map((s) => String(s || '').toLowerCase().trim())
+    .join('|');
+}
+
+function mergeJobs(a, b) {
+  const merged = { ...a };
+  const conflicts = [...(a.conflicts || [])];
+  for (const field of ['title', 'company', 'location', 'work_mode', 'employment_type', 'salary', 'description']) {
+    const left = a[field];
+    const right = b[field];
+    const leftEmpty = left == null || left === '' || left === 'unknown';
+    const rightEmpty = right == null || right === '' || right === 'unknown';
+    if (!leftEmpty && !rightEmpty && String(left) !== String(right)) {
+      conflicts.push({ field, values: [left, right] });
+    } else if (leftEmpty && !rightEmpty) {
+      merged[field] = right;
+    }
+  }
+  merged.provenance = [...(a.provenance || []), ...(b.provenance || [])];
+  merged.conflicts = conflicts;
+  if (!merged.source_url) merged.source_url = b.source_url;
+  return merged;
+}
+
+/**
+ * Deterministic dedup. Never title-only. URL wins, then company+title+location.
+ *
+ * @param {object[]} jobs
+ */
+export function deduplicateJobs(jobs) {
+  const byUrl = new Map();
+  const byCtl = new Map();
+  const kept = [];
+  const quarantined = [];
+
+  for (const job of jobs || []) {
+    if (job.quarantine) {
+      quarantined.push(job);
+      continue;
+    }
+    const url = job.source_url;
+    const ctl = ctlKey(job);
+    const hasCtl = Boolean(job.company && job.title && job.location);
+
+    if (url && byUrl.has(url)) {
+      const idx = kept.indexOf(byUrl.get(url));
+      const merged = mergeJobs(byUrl.get(url), job);
+      kept[idx] = merged;
+      byUrl.set(url, merged);
+      if (hasCtl) byCtl.set(ctl, merged);
+      continue;
+    }
+    if (hasCtl && byCtl.has(ctl)) {
+      const idx = kept.indexOf(byCtl.get(ctl));
+      const merged = mergeJobs(byCtl.get(ctl), job);
+      kept[idx] = merged;
+      byCtl.set(ctl, merged);
+      if (url) byUrl.set(url, merged);
+      continue;
+    }
+
+    kept.push(job);
+    if (url) byUrl.set(url, job);
+    if (hasCtl) byCtl.set(ctl, job);
+  }
+
+  return [...kept, ...quarantined];
+}
