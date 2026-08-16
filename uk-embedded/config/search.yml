@@ -1,0 +1,26 @@
+tracks:
+  - embedded-linux
+  - iot
+  - firmware
+queries:
+  - Embedded Linux engineer UK
+  - Yocto engineer UK
+  - IoT firmware engineer UK
+  - Embedded software Cheltenham OR Bristol OR Cambridge
+exclusions:
+  - intern
+  - graduate scheme
+  - "unpaid"
+title_filter_positive:
+  - embedded
+  - firmware
+  - yocto
+  - iot
+  - rtos
+  - linux kernel
+  - device software
+title_filter_negative:
+  - intern
+  - graduate
+  - php
+  - "front-end"

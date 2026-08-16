@@ -1,0 +1,25 @@
+country: UK
+locations:
+  - Cheltenham
+  - Gloucester
+  - Bristol
+  - Swindon
+  - Oxford
+  - Birmingham
+  - Reading
+  - Cambridge
+  - London
+  - Remote UK
+work_modes:
+  - onsite
+  - hybrid
+  - remote
+job_types:
+  - permanent
+  - contract
+# Personal commute/salary/visa values belong in config/profile.yml (user layer).
+commute_max_minutes: null
+salary_currency: GBP
+work_authorisation: null
+security_clearance: null
+ir35: null

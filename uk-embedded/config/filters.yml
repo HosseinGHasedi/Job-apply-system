@@ -1,0 +1,22 @@
+# Deterministic eligibility — unknown must not reject.
+reject_unrelated_domains:
+  - frontend
+  - mobile-ios
+  - mobile-android
+  - pure-data-science
+reject_seniority:
+  - intern
+  - graduate
+  - junior
+excluded_employment_types: []
+excluded_work_modes: []
+require_uk_location: true
+sponsorship:
+  # null = unknown in JD must pass through
+  reject_if_no_sponsorship: null
+clearance:
+  reject_if_missing_when_required: null
+unrelated_title_keywords:
+  - "react native"
+  - "php wordpress"
+  - "sales executive"
