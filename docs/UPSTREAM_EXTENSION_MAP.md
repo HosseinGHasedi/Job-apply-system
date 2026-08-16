@@ -63,10 +63,10 @@ Unregistered paths fail `validate-system-paths-coverage.mjs`.
 | S11 ROI | new evaluator | Priority sort using existing score + estimated effort. Config weights in profile, not a new engine. |
 | S12 Company research | new adapter | Reuse `modes/deep.md` + `contacto.md`. |
 | S13 Evidence retrieval | new retriever | Select from the S02 store into the existing PDF/cover prompts. |
-| S14 CV | Mads-style generator | Reuse `generate-pdf.mjs` + `modes/pdf.md` + `verify-cv-facts.mjs`. |
-| S15 Cover letter | new generator | Reuse `generate-cover-letter.mjs` + `modes/cover.md`. |
-| S16 Independent review | new reviewer | Enable/extend `modes/pdf/hm-audit.md`; add flawed fixtures. |
-| S17 ATS/PDF | new validator | Reuse fact gate + Playwright visual tests. |
+| S14 CV | Mads-style generator | **Still a required slice.** Start from `generate-pdf.mjs` + `modes/pdf.md` + `verify-cv-facts.mjs`, but feed **S02 evidence**, keep ChatGPT’s no-invention tests, and import Mads honesty rules. Vanilla career-ops CV output is not the definition of done. |
+| S15 Cover letter | new generator | **Still a required slice.** Start from `generate-cover-letter.mjs` + `modes/cover.md` + existing `assertFacts`. Must stay specific, evidence-backed, company-researched, and fail if it claims a technology not in evidence. |
+| S16 Independent review | new reviewer | **Still a required slice.** career-ops `hm-audit` is opt-in — ChatGPT requires it as a blocking stage with planted-defect tests (invented tech, irrelevant project, missing mandatory requirement). Make that the default for UK Embedded applications. |
+| S17 ATS/PDF | new validator | **Still a required slice.** career-ops fact-gate runs on HTML; Mads/`pdftotext` checks the **compiled PDF text layer**. S17 is not done until ChatGPT’s fixtures pass: valid PDF, image-only fail, missing name fail, truthful keywords present, layout/blank-page checks. |
 | S18 Tracking | new state machine | Reuse `data/applications.md` + `templates/states.yml`. Map extra states via aliases if needed; do not create `applications/active/`. |
 | S19 Interview prep | new generator | Reuse `modes/interview-prep.md` + `interview/`. |
 | S20 Outcomes | new schema | Reuse `outcome.mjs` + `data/outcomes/`. |
@@ -85,23 +85,37 @@ These are the slices that are **not** already career-ops, for a UK Embedded sear
    Reed/Indeed/CWJobs/company career pages matter more for Embedded.
 5. **S08/S09** — taxonomy-aware fit and transferability **on top of** Block B.
 6. **S11** — effort-aware queue (interviews per hour).
-7. **S16** — make adversarial review default for generated CVs, with fixtures.
+7. **S14–S17** — document pipeline at Mads/ChatGPT quality, not vanilla
+   career-ops output. See §5. Reuse the *engines*; keep the *acceptance tests*.
 
-Everything else should be configuration, prompts, or thin adapters.
+Discovery, ranking, and UK filters are configuration/adapters on career-ops.
+CV, cover letter, independent review, and ATS validation are **not** skipped
+just because career-ops already generates PDFs.
 
-## 5. What not to copy from Mads `ai-job-search`
+## 5. ChatGPT / Mads document-quality bars (non-negotiable)
 
-Port **ideas**:
+ChatGPT’s instruction for S14 was: adapt the **strongest** of career-ops *and*
+Mads `ai-job-search`. That is not “use career-ops and ignore Mads.”
 
-- independent reviewer that must catch planted defects
-- ATS text-layer honesty (`pdftotext`)
-- “keyword the profile doesn’t support stays a gap”
+Mads is stronger at the **application-document loop**. Those capabilities must
+exist in the finished system, even if the files live in career-ops:
 
-Do **not** port:
+| ChatGPT / Mads bar | career-ops today | What we still must do |
+| --- | --- | --- |
+| CV from verified evidence, not model memory | Reads `cv.md`; no typed evidence graph | S02 + S13 + S14: every bullet traceable to evidence |
+| Never invent experience / metrics / tech / seniority | `verify-cv-facts.mjs` on HTML; `jd-skill-gap.mjs` before draft | Keep as a **hard gate**. Add ChatGPT’s test: absent tech may appear in gaps, never as experience |
+| Tailor: reorder, emphasise, select projects | `modes/pdf.md` already does this | Keep; drive selection from S13 evidence, not free-form memory |
+| Cover letter: specific problem + evidence + company, no generic praise | `modes/cover.md` + company WebSearch + `assertFacts` | Keep ChatGPT S15 tests; reject unsupported technology claims |
+| Independent reviewer that must not rubber-stamp | `modes/pdf/hm-audit.md` **opt-in** | Make default for this system. Planted-defect fixtures must catch invented tech, irrelevant project, missing mandatory requirement. Blocking issues stop finalization |
+| ATS: PDF text layer, not the pretty HTML | Fact-gate on HTML; `pdftotext` in visual **tests**, not every application | S17 hard gate on the compiled PDF: text layer exists, name/contact/headings present, image-only PDF fails, truthful keywords present, no blank/corrupt pages |
+| Honesty: unsupported JD keyword stays a gap, never stuffed | `modes/pdf.md` Step 4 already forbids stuffing `gap` skills | Preserve and test. This is the Mads rule ChatGPT cared about |
+| Failed validation blocks “ready to apply” | Fact-gate blocks PDF; page overflow is often a warning | ChatGPT S17: failed ATS/review → not ready_for_submission |
+
+Do **not** port from Mads:
 
 - a second Claude-Code skill tree
 - a second tracker
-- a second PDF toolchain as the default (career-ops already has HTML+Playwright and LaTeX)
+- a second PDF toolchain **as a default** (career-ops already has HTML+Playwright *and* LaTeX). If the HTML path fails S17 text-layer fixtures, use or tighten the existing LaTeX path rather than importing Mads’ whole `/apply` tree.
 
 ## 6. Test vs training isolation
 
