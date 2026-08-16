@@ -8,7 +8,7 @@
 import { existsSync, readFileSync } from 'fs';
 import { dirname, isAbsolute, join } from 'path';
 import { fileURLToPath } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 const SPECIALIZATION_ROOT = dirname(fileURLToPath(import.meta.url));
 export const REPO_ROOT = join(SPECIALIZATION_ROOT, '..');

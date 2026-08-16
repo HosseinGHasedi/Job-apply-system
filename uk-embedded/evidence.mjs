@@ -4,7 +4,7 @@
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'fs';
 import { extname, join } from 'path';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 export const EVIDENCE_TYPES = ['project', 'technology', 'achievement', 'responsibility'];
 export const CONFIDENCE = ['verified', 'strong', 'probable', 'weak', 'unknown'];

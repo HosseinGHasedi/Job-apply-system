@@ -5,7 +5,7 @@
 import { readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 
 const TAXONOMY_DIR = join(dirname(fileURLToPath(import.meta.url)), 'taxonomy');
 
