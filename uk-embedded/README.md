@@ -14,7 +14,11 @@ Health check (no network, no scoring):
 
 ```bash
 node uk-embedded/health.mjs
+node uk-embedded/run.mjs --fixtures
+node test-all.mjs --only uk-embedded
 ```
+
+The fixture runner never writes `data/outcomes/` or `config/benchmarks.yml`.
 
 Agent-facing calibration lives in `modes/regional/uk-embedded.md`.
 Personal house rules still go in `modes/_custom.md`.
