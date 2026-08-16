@@ -1,0 +1,59 @@
+- id: embedded-c
+  name: Embedded C
+  synonyms: [c, embedded c]
+- id: cpp
+  name: C++
+  synonyms: [c++, cxx]
+- id: python
+  name: Python
+  synonyms: [python3]
+- id: linux
+  name: Linux
+  synonyms: [gnu/linux]
+- id: linux-kernel
+  name: Linux kernel
+  synonyms: [kernel]
+- id: device-drivers
+  name: device drivers
+  synonyms: [drivers]
+- id: systemd
+  name: systemd
+- id: yocto
+  name: Yocto
+  synonyms: [yocto project, poky, bitbake]
+- id: buildroot
+  name: Buildroot
+- id: rtos
+  name: RTOS
+  synonyms: [freertos, zephyr]
+- id: mqtt
+  name: MQTT
+  synonyms: [mosquitto]
+- id: zigbee
+  name: Zigbee
+- id: ble
+  name: BLE
+  synonyms: [bluetooth low energy]
+- id: lte
+  name: LTE
+- id: i2c
+  name: I2C
+- id: spi
+  name: SPI
+- id: uart
+  name: UART
+- id: can
+  name: CAN
+- id: fpga
+  name: FPGA
+- id: docker
+  name: Docker
+- id: azure-iot
+  name: Azure IoT
+- id: aws-iot
+  name: AWS IoT
+- id: networking
+  name: networking
+- id: computer-vision
+  name: computer vision
+  synonyms: [opencv, cv]

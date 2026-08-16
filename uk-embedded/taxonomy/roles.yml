@@ -1,0 +1,20 @@
+- id: embedded-software
+  name: Embedded Software
+- id: embedded-linux
+  name: Embedded Linux
+- id: firmware
+  name: Firmware
+- id: iot
+  name: IoT
+- id: edge-computing
+  name: Edge Computing
+- id: device-software
+  name: Device Software
+- id: systems-software
+  name: Systems Software
+- id: connectivity
+  name: Connectivity
+- id: embedded-ai
+  name: Embedded AI
+- id: technical-lead
+  name: Technical Lead

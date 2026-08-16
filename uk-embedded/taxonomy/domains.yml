@@ -1,0 +1,16 @@
+- id: iot
+  name: IoT
+- id: embedded-linux
+  name: Embedded Linux
+- id: embedded-hardware
+  name: Embedded Hardware
+- id: cloud-iot
+  name: Cloud IoT
+- id: connectivity
+  name: Connectivity
+- id: firmware
+  name: Firmware
+- id: edge
+  name: Edge Computing
+- id: computer-vision
+  name: Computer Vision
