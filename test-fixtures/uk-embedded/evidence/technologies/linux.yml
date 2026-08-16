@@ -1,0 +1,12 @@
+id: tech-linux
+type: technology
+title: Linux
+description: Embedded Linux userspace and build integration on a gateway product.
+technologies: [linux]
+domain: embedded-linux
+strength: proficient
+years: 4
+production: true
+source: test-fixtures/uk-embedded/evidence/technologies/linux.yml
+confidence: verified
+related_evidence: [proj-iot-gateway]

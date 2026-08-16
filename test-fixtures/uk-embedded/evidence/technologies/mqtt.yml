@@ -1,0 +1,12 @@
+id: tech-mqtt
+type: technology
+title: MQTT
+description: MQTT publishers and subscribers on constrained devices.
+technologies: [mqtt]
+domain: iot
+strength: working
+years: 3
+production: true
+source: test-fixtures/uk-embedded/evidence/technologies/mqtt.yml
+confidence: strong
+related_evidence: [proj-iot-gateway]

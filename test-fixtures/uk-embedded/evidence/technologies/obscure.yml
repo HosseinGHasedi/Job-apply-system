@@ -1,0 +1,12 @@
+id: tech-obscure
+type: technology
+title: FictionalBus-9000
+description: Mentioned in a lab note only. Not production expertise.
+technologies: [fictionalbus-9000]
+domain: unknown
+strength: expert
+years: 0
+production: false
+source: test-fixtures/uk-embedded/evidence/technologies/obscure.yml
+confidence: unknown
+related_evidence: [proj-iot-gateway]

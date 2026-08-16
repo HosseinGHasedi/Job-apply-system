@@ -1,0 +1,12 @@
+id: proj-iot-gateway
+type: project
+title: Fictional IoT edge gateway
+description: Linux gateway forwarding sensor telemetry over MQTT to a cloud broker.
+technologies: [tech-linux, tech-mqtt, tech-obscure]
+domain: iot
+strength: working
+years: 3
+production: true
+source: test-fixtures/uk-embedded/evidence/projects/iot-gateway.yml
+confidence: verified
+related_evidence: [tech-linux, tech-mqtt]
